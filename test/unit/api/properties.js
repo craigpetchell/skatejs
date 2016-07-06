@@ -93,6 +93,30 @@ describe('api/prop', function () {
       });
     });
 
+    it('transition from true to false', function (done) {
+      const elem = create(prop.boolean({
+        default: true
+      }));
+      elem.setAttribute('test', false);
+      afterMutations(
+        () => expect(elem.test).to.equal(false, 'property'),
+        () => expect(elem.getAttribute('test')).to.equal('false', 'attribute'),
+        done
+      );
+    });
+
+    it('transition from false to true', function (done) {
+      const elem = create(prop.boolean({
+        default: false
+      }));
+      elem.setAttribute('test', true);
+      afterMutations(
+        () => expect(elem.test).to.equal(true, 'property'),
+        () => expect(elem.getAttribute('test')).to.equal('true', 'attribute'),
+        done
+      );
+    });
+
     it('removing attribute', function (done) {
       const elem = create(prop.boolean());
       afterMutations(
